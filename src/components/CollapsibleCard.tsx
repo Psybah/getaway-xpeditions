@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -28,32 +27,33 @@ const CollapsibleCard: React.FC<CollapsibleCardProps> = ({
   };
 
   return (
-    <Card className="overflow-hidden bg-white rounded-3xl shadow-md">
-      <div className="relative rounded-t-3xl overflow-hidden">
+    <Card className="overflow-hidden bg-white rounded-3xl shadow-xl p-0 flex flex-col">
+      <div className="relative w-full">
         <img 
           src={image} 
           alt={title}
-          className="w-full h-64 object-cover"
+          className="w-full h-48 object-cover rounded-t-3xl"
         />
-        <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/70 to-transparent">
-          <h3 className="font-display text-xl text-white font-bold">{title}</h3>
-          {subtitle && (
-            <p className="text-white/80 text-sm">{subtitle}</p>
-          )}
+        {/* Overlay with gradient, title, subtitle, and expand/collapse button */}
+        <div className="absolute bottom-0 left-0 w-full px-6 pb-4 pt-16 flex flex-col justify-end bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-t-3xl">
+          <div className="flex items-end justify-between">
+            <div>
+              <h3 className="font-display text-lg text-white font-bold mb-1 drop-shadow-md">{title}</h3>
+              {subtitle && (
+                <p className="text-white/80 text-xs drop-shadow-md">{subtitle}</p>
+              )}
+            </div>
+            <button 
+              onClick={toggleExpand}
+              className="ml-2 bg-white/20 hover:bg-travel-primary/80 text-white rounded-full p-1 transition-colors shadow"
+              aria-expanded={isExpanded}
+              aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+            >
+              {isExpanded ? <ChevronUp size={22} /> : <ChevronDown size={22} />}
+            </button>
+          </div>
         </div>
       </div>
-
-      <div className="text-center p-2">
-        <button 
-          onClick={toggleExpand}
-          className="text-gray-500 hover:text-travel-primary transition-colors"
-          aria-expanded={isExpanded}
-          aria-label={isExpanded ? "Collapse details" : "Expand details"}
-        >
-          {isExpanded ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
-        </button>
-      </div>
-
       {isExpanded && (
         <CardContent className="p-6 animate-accordion-down">
           {stats && stats.length > 0 && (

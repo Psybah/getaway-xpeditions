@@ -18,8 +18,8 @@ const Index = () => {
       {/* Hero Section with Destination Slider */}
       <DestinationSlider />
       
-      {/* Travel Categories Section */}
-      <TravelCategoriesSection categories={travelCategories} />
+      {/* Travel Categories Section
+      <TravelCategoriesSection categories={travelCategories} /> */}
       
       {/* Popular Destinations Section */}
       <PopularDestinationsSection />

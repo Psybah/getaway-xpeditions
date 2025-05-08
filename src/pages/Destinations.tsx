@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { Search, Filter, MapPin, Calendar, DollarSign, Star } from 'lucide-react';
+import { Search, SlidersHorizontal, MapPin, Calendar, DollarSign, Star } from 'lucide-react';
 import CollapsibleCard from '@/components/CollapsibleCard';
 
 interface DestinationCard {
@@ -132,7 +132,7 @@ const Destinations: React.FC = () => {
           </div>
           
           <div className="flex items-center gap-2 min-w-[180px]">
-            <Filter size={18} className="text-gray-600" />
+            <SlidersHorizontal size={18} className="text-gray-600" />
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}

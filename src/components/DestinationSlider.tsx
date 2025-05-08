@@ -1,7 +1,144 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
-import { Destination, destinations } from '@/data/destinations';
+
+// Replace the destinations data with the new categories and details
+const destinations = [
+  {
+    id: 1,
+    region: "Luxury & Relaxation",
+    country: "Santorini, Greece",
+    name: "SANTORINI",
+    description: "Indulge in opulence and serenity at some of the world's most exclusive getaways: Iconic white villas and Aegean sunsets.",
+    backgroundImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80", // Santorini
+    cardImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 2,
+    region: "Luxury & Relaxation",
+    country: "Maldives",
+    name: "MALDIVES",
+    description: "Overwater villas and luxury island resorts await in the Maldives, a true paradise for relaxation.",
+    backgroundImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80", // Maldives
+    cardImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 3,
+    region: "Luxury & Relaxation",
+    country: "Dubai, UAE",
+    name: "DUBAI",
+    description: "Sky-high experiences and desert elegance in the heart of Dubai's luxury scene.",
+    backgroundImage: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1920&q=80", // Dubai
+    cardImage: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 4,
+    region: "Culture & History",
+    country: "Cairo, Egypt",
+    name: "CAIRO",
+    description: "Step back in time and immerse yourself in rich traditions: Ancient wonders and Nile River adventures.",
+    backgroundImage: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1920&q=80", // Cairo
+    cardImage: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 5,
+    region: "Culture & History",
+    country: "Rome, Italy",
+    name: "ROME",
+    description: "Timeless ruins and Italian charm in the heart of Rome.",
+    backgroundImage: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1920&q=80", // Rome
+    cardImage: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 6,
+    region: "Culture & History",
+    country: "Zanzibar, Tanzania",
+    name: "ZANZIBAR",
+    description: "Swahili culture and spice island history on the shores of Zanzibar.",
+    backgroundImage: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1920&q=80", // Zanzibar
+    cardImage: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 7,
+    region: "Nature & Adventure",
+    country: "Cape Town, South Africa",
+    name: "CAPE TOWN",
+    description: "Mountains, safaris, and wine trails for the thrill-seekers and nature lovers.",
+    backgroundImage: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1920&q=80", // Cape Town
+    cardImage: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 8,
+    region: "Nature & Adventure",
+    country: "Bali, Indonesia",
+    name: "BALI",
+    description: "Volcanic treks, waterfalls, and sacred temples in Bali's lush landscapes.",
+    backgroundImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80", // Bali
+    cardImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 9,
+    region: "Nature & Adventure",
+    country: "Costa Rica",
+    name: "COSTA RICA",
+    description: "Rainforests, volcanoes, and eco-adventures for the adventurous spirit.",
+    backgroundImage: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1920&q=80", // Costa Rica
+    cardImage: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 10,
+    region: "Romantic Escapes",
+    country: "Paris, France",
+    name: "PARIS",
+    description: "Candlelit dinners and Eiffel Tower views for a romantic escape.",
+    backgroundImage: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1920&q=80", // Paris
+    cardImage: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 11,
+    region: "Romantic Escapes",
+    country: "Seychelles",
+    name: "SEYCHELLES",
+    description: "Private beaches and luxury island life for couples in love.",
+    backgroundImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80", // Seychelles
+    cardImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 12,
+    region: "Romantic Escapes",
+    country: "Venice, Italy",
+    name: "VENICE",
+    description: "Gondola rides and timeless romance in the magical city of Venice.",
+    backgroundImage: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1920&q=80", // Venice
+    cardImage: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 13,
+    region: "Budget-Friendly Getaways",
+    country: "Thailand",
+    name: "THAILAND",
+    description: "Exotic islands and delicious street food for the budget traveler.",
+    backgroundImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80", // Thailand
+    cardImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 14,
+    region: "Budget-Friendly Getaways",
+    country: "Morocco",
+    name: "MOROCCO",
+    description: "Colorful souks, desert magic, and rich culture for less.",
+    backgroundImage: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1920&q=80", // Morocco
+    cardImage: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    id: 15,
+    region: "Budget-Friendly Getaways",
+    country: "Ghana",
+    name: "GHANA",
+    description: "History, heritage, and coastal beauty on a budget.",
+    backgroundImage: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1920&q=80", // Ghana
+    cardImage: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80"
+  },
+];
 
 const DestinationSlider: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
